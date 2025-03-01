@@ -1,0 +1,87 @@
+header {
+    background-color: @primary-color;
+    color: @primary-text-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    padding: 0.25rem 0.5rem;
+    flex-direction: column;
+
+    //sale error porque vc-code no lo reconoce pero less sí
+    @media (min-width: #breaks[tablet]) {
+        flex-direction: row;
+    }
+
+    div {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        padding: 0.25rem 1rem;
+
+        h1 {
+            margin: 0px;
+            font-size: 1.2rem;
+        }
+
+        img {
+            display: block;
+            border-radius: 50%;
+        }
+    }
+
+    nav {
+        margin-right: 0px;
+
+        @media (min-width: #breaks[tablet]) {
+            margin-right: 1rem;
+            flex: 0;
+            width: auto;
+        }
+
+        ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 0.75rem;
+            padding: 0px;
+            flex-direction: column;
+            flex: 1;
+
+            @media (min-width: #breaks[tablet]) {
+                flex-direction: row;
+            }
+
+            li {
+                width: 100%;
+                border-bottom: 1px solid @primary-color;
+
+                @media (min-width: #breaks[tablet]) {
+                    width: auto;
+                    border-bottom: none;
+                }
+
+                a {
+                    // display: inline-block;
+                    padding: 0.5rem 1rem;
+                    text-decoration: none;
+                    color: @primary-text-color;
+                    transition: all 0.3s ease-in;
+
+                    &:hover {
+                        text-decoration: underline;
+                        background-color: @primary-color-light;
+                    }
+
+                    @media (min-width: #breaks[tablet]) {
+                        width: auto;
+                        display: inline-block;
+
+                    }
+                }
+            }
+
+        }
+    }
+
+}

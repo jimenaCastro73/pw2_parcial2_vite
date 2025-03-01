@@ -1,0 +1,27 @@
+@primary-color: #587ed6;
+@primary-text-color: #fff;
+@primary-color-super-dark: darken(@primary-color, 50%);
+@primary-color-dark: darken(@primary-color, 10%);
+@primary-color-light: lighten(@primary-color, 10%);
+@primary-color-super-light: lighten(@primary-color, 30%);
+
+
+@secondary-color: #eee;
+@secondary-text-color: #333;
+@secondary-color-super-dark: darken(@secondary-color, 50%);
+@secondary-color-dark: darken(@secondary-color, 10%);
+@secondary-color-light: lighten(@secondary-color, 10%);
+@secondary-color-super-light: lighten(@secondary-color, 30%);
+
+#breaks {
+    tablet: 768px;
+    desktop: 1025px;
+    wide: 2300px;
+} //mapa, llave-valor
+
+//mapa, dimensiones dispositivos - grid
+#breaks-prefix{
+    tablet: md-;
+    desktop: lg-;
+    wide: xl-;
+}

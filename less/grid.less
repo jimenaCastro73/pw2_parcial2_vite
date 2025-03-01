@@ -1,0 +1,63 @@
+// definir un mixin que genera las reglas del grid, recursivo=se llama a si mismo
+// iterar, recorrer hasta llegar a donde se solicita
+
+// Mixin para generar dinámicamente clases de columnas y offsets en un sistema de grid
+.generarColumns(@prefijo, @columnas, @iteracion : 1) when (@iteracion =< @columnas) { // Condición: Ejecutar mientras @iteracion sea menor o igual a @columnas
+
+    // Construye los nombres de las clases dinámicamente, usando interpolacion
+    @selector-columna: ~'.col-@{prefijo}@{iteracion}'; // Ejemplo: .col-md-1, .col-md-2, etc.
+    @selector-offset: ~'.offset-@{prefijo}@{iteracion}'; // Ejemplo: .offset-md-1, .offset-md-2, etc.
+
+    // Calcula el ancho de la columna en porcentaje según el total de columnas
+    @ancho: (100% / @columnas * @iteracion);
+
+    // Genera la clase para la columna con su ancho correspondiente
+    @{selector-columna} {
+        flex: 0 0 @ancho; // Asigna el ancho a la columna sin permitir que se expanda o contraiga
+    }
+
+    // Genera la clase para el offset, desplazando la columna hacia la derecha
+    @{selector-offset} {
+        margin-left: @ancho;
+    }
+
+    // Llamada recursiva para crear la siguiente columna en la iteración
+    .generarColumns(@prefijo, @columnas, (@iteracion + 1));
+}
+
+
+// Estilos para el sistema de grid / class grid
+.grid {
+    display: flex;
+    flex-direction: column;
+
+    .row {
+        display: flex;
+        flex: 1 100%; // las filas ocupen todo el ancho disponible
+        flex-wrap: wrap;
+
+        // Aplica un borde a cualquier elemento que contenga "col-" en su clase
+        [class*="col-"] {
+            border: 1px solid @primary-color-dark;
+        }
+
+        // Genera columnas por defecto (sin prefijo) para pantallas pequeñas (ejemplo: .col-1, .col-2, etc.)
+        .generarColumns('', 6);
+
+      
+        @media (min-width:#breaks[tablet]) {
+            .generarColumns(#breaks-prefix[tablet], 12); 
+            // Para tabletas, genera .col-md-1, .col-md-2, ..., .col-md-12
+        }
+
+        @media (min-width:#breaks[desktop]) {
+            .generarColumns(#breaks-prefix[desktop], 12); 
+            // Para escritorios, genera .col-lg-1, .col-lg-2, ..., .col-lg-12
+        }
+
+        @media (min-width:#breaks[wide]) {
+            .generarColumns(#breaks-prefix[wide], 12); 
+            // Para pantallas grandes, genera .col-xl-1, .col-xl-2, ..., .col-xl-12
+        }
+    }
+}
